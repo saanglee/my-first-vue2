@@ -4,12 +4,12 @@
 
     <complted-todo :todos="todos" />
     <add-todo @add-todo="addTodo" />
-    <!-- <todo-list
+    <todo-list
       :todos="todos"
       @toggle-checkbox="toggleCheckbox"
       @click-delete="deleteTodo"
-    /> -->
-    <todo-list :todos="todos" @toggle-checkbox="toggleCheckbox" />
+    />
+
     <hr />
   </div>
 </template>
@@ -45,13 +45,16 @@ export default {
       });
       this.todoText = "";
     },
-    // deleteTodo(id) {
-    //   const index = this.todos.findIndex((todo) => {
-    //     return todo.id === id;
-    //   });
-    //   this.todo.splice(index, 1);
-    // },
+    deleteTodo(id) {
+      console.log("id: ", id);
+      const index = this.todos.findIndex((todo) => {
+        return todo.id === id;
+      });
+      console.log("index: ", index);
+      this.todos.splice(index, 1);
+    },
     toggleCheckbox({ id, checked }) {
+      console.log(id, checked);
       const index = this.todos.findIndex((todo) => {
         return todo.id === id;
       });
