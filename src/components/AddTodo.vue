@@ -11,12 +11,16 @@
 <script>
 export default {
   data() {
-    return { todoText: "" };
+    return {
+      todoText: "",
+    };
   },
   methods: {
     addTodo(event) {
-      console.log("add-todo - ", event.target.value);
-      this.$emit("add-todo", event.target.value);
+      // this.$store.commit("ADD_TODO", event.target.value); // .commit('mutation', value)
+      this.$store.dispatch("todo/addTodo", event.target.value); // .dispatch('action', value)
+      this.todoText = "";
+      // this.$emit('add-todo', event.target.value);
     },
   },
 };
