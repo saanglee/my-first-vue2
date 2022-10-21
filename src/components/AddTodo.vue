@@ -1,11 +1,11 @@
 <template>
-  <input
-    v-model="todoText"
-    type="text"
-    class="w-100 p-2"
-    placeholder="Type todo"
-    @keyup.enter="addTodo"
-  />
+  <div>
+    <v-text-field
+      label="할 일을 작성해 보세요."
+      @keyup.enter="addTodo"
+      class="ma-3 text-h5"
+    />
+  </div>
 </template>
 
 <script>
