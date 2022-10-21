@@ -1,29 +1,15 @@
 <template>
-  <div id="app" class="container">
-    <h1 class="text-center">APP</h1>
-    <complted-todo />
-    <add-todo />
-    <hr />
-    <todo-list />
-    <user-list />
+  <div id="app">
+    <nav>
+      <router-link to="/">Login</router-link> |
+      <router-link to="/todo">ToDo</router-link>
+    </nav>
+    <router-view />
   </div>
 </template>
 
 <script>
-/* eslint-disable */
-import TodoList from "./components/TodoList.vue";
-import AddTodo from "./components/AddTodo.vue";
-import CompltedTodo from "./components/CompletedTodo.vue";
-import UserList from "./components/UserList.vue";
-
 export default {
-  components: {
-    AddTodo,
-    CompltedTodo,
-    TodoList,
-    UserList,
-  },
+  name: "App",
 };
 </script>
-
-<style></style>
