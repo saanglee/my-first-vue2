@@ -18,11 +18,12 @@
       >
     </v-card>
   </v-col>
-
-  <!-- {{ numberOfCompletedTodo }} -->
 </template>
 
 <script>
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+import db from "../main";
+
 export default {
   props: {
     todo: {
@@ -37,18 +38,32 @@ export default {
   },
   methods: {
     toggleCheckbox(event) {
-      // console.log(event);
       this.$store.dispatch("todo/toggleTodo", {
         id: this.todo.id,
         checked: event,
-        // checked: event.target.value,
       });
     },
     clickDelete() {
       this.$store.dispatch("todo/deleteTodo", this.todo.id);
-      // this.$store.commit("DELETE_TODO", this.todo.id);
-      // this.$emit('click-delete', this.todo.id);
     },
+    // ✨ Delete Todo from firbase by id
+    async _clickDelete() {
+      const targetId = "ybMKTsE6geru35MCPY3H";
+      await deleteDoc(doc(db, "todos", targetId));
+    },
+    // ✨ Update Todo by id
+    async updateTodo() {
+      const targetId = "RsgRXs74XfkOPOI0EGaO";
+      const targetItem = doc(db, "todos", targetId);
+      await updateDoc(targetItem, {
+        todoText: "내용 수정 테스트",
+      });
+    },
+  },
+  // 👩‍🔬 Test
+  mounted() {
+    this._clickDelete();
+    this.updateTodo();
   },
 };
 </script>
