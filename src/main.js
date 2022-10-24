@@ -4,8 +4,8 @@ import store from "./store";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
 import firebase from "firebase/compat/app";
-// import { initializeApp } from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 Vue.config.productionTip = false;
 
@@ -20,9 +20,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+// Initialize Cloud Firestore and get a reference to the service
+const db = getFirestore(app);
+export default db;
 
 new Vue({ router, store, vuetify, render: (h) => h(App) }).$mount("#app");
-
-// const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
