@@ -1,9 +1,8 @@
 <template>
   <div>
-    Todo
     <v-btn @click.prevent="logout">Logout</v-btn>
     <add-todo />
-    <completed-todo />
+
     <todo-list />
   </div>
 </template>
@@ -22,11 +21,21 @@ export default {
     AddTodo,
     CompletedTodo,
   },
+  created() {
+    // session getItem ( parser )
+    // undefined, null -> redirect
+    const storedUser = sessionStorage.getItem("user");
+    if (!storedUser) {
+      this.$router.replace("/");
+      return;
+    }
+  },
   methods: {
     logout() {
       const auth = getAuth();
       signOut(auth)
         .then(() => {
+          sessionStorage.removeItem("user");
           console.log("log out");
           this.$router.replace("/");
         })
