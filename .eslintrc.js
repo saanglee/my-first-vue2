@@ -1,17 +1,22 @@
 module.exports = {
-  "root": true,
-  "env": {
-    "node": true
+  root: true,
+  env: {
+    node: true,
   },
   extends: ["plugin:vue/recommended", "plugin:vuetify/base"],
   rules: {
-    // "vue/first-attribute-linebreak": [
-    //   0,
-    //   {
-    //     singleline: "beside",
-    //     multiline: "below",
-    //   },
-    // ],
+    "vue/html-self-closing": [
+      "error",
+      {
+        html: {
+          void: "never",
+          normal: "always",
+          component: "always",
+        },
+        svg: "always",
+        math: "always",
+      },
+    ],
     "vuetify/no-deprecated-classes": "error",
     "vue/multi-word-component-names": 0,
     "vuetify/no-legacy-grid": "error",
