@@ -56,6 +56,8 @@ npm run serve
 ## 1. 로그인/회원가입
 
 ### 로그인 화면
+<img width="1273" alt="image" src="https://user-images.githubusercontent.com/92660097/198518924-d0b5bfad-879e-4d54-b9b2-a2328224e8ed.png">
+
 - 회원가입 화면도 동일합니다.email, password만을 입력하여 회원가입, 로그인 합니다.
 - 이메일과 비밀번호 유효성 검사를 합니다.
 - firebase를 이용하여 사용자 인증을 합니다.
@@ -185,3 +187,9 @@ InputForm.vue - script 부분) 로그인, 회원가입 로직
 ```
 
 # 동작 화면
+
+![Kapture 2022-10-28 at 14 36 23](https://user-images.githubusercontent.com/92660097/198518808-71ae778c-e5d7-42dc-98f1-a50146dd8a80.gif)
+
+
+![Kapture 2022-10-28 at 14 41 02](https://user-images.githubusercontent.com/92660097/198518789-ed34c4a1-dc04-4e22-8db8-2e564e3a3c1c.gif)
+
