@@ -3,39 +3,14 @@
     <v-card class="login-form">
       <v-form ref="form" class="login-form" @submit.prevent="login">
         <div class="input-container">
-          <v-text-field
-            v-model="email"
-            type="text"
-            label="E-MAIL"
-            :rules="emailValidation"
-            required
-          />
-          <v-text-field
-            v-model="password"
-            type="password"
-            label="PASSWORD"
-            :rules="pwdValidation"
-            required
-          />
+          <v-text-field v-model="email" type="text" label="E-MAIL" :rules="emailValidation" required />
+          <v-text-field v-model="password" type="password" label="PASSWORD" :rules="pwdValidation" required />
 
           <div class="button-container">
-            <v-btn
-              v-if="isLogin"
-              type="submit"
-              class="button text-h6"
-              color="primary"
-              @click="login"
-            >
+            <v-btn v-if="isLogin" type="submit" class="button text-h6" color="primary" @click="login" >
               로그인
             </v-btn>
-            <v-btn
-              v-else
-              type="submit"
-              class="button text-h6"
-              color="primary"
-              depressed
-              @click="register"
-            >
+            <v-btn v-else type="submit" class="button text-h6" color="primary" depressed @click="register" >
               회원가입
             </v-btn>
           </div>
@@ -64,7 +39,7 @@ export default {
     return {
       email: "",
       password: "",
-      emailValidation: [
+      validateEmail: [
         (value) => !!value || "이메일을 입력해주세요.",
         (value) => {
           const replacedValue = value.replace(/(\s*)/g, ""); 
@@ -73,7 +48,7 @@ export default {
           return regex.test(replacedValue) || "이메일 형식을 확인해주세요.";
         },
       ],
-      pwdValidation: [
+      validatePassword: [
         (value) => !!value || "비밀번호를 입력해주세요,",
         (value) => {
           const replacedValue = value.replace(/(\s*)/g, "");
