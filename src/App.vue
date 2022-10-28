@@ -2,10 +2,15 @@
   <v-app id="app">
     <v-navigation-drawer v-model="drawer" app>
       <v-sheet color="grey lighten-4" class="pa-4">
-        <v-avatar class="mb-4" color="grey darken-1" size="64"></v-avatar>
-        <div>
-          <!-- FIXME: userEmail binding -->
-          {{ userEmail }}
+        <h1 class="text-h3">To Do It!</h1>
+        <v-card class="mt-3">
+          <v-card-subtitle class="text-h5">
+            🗓 오늘 <br />
+            {{ getDate }}
+          </v-card-subtitle>
+        </v-card>
+        <div class="text-h6 ma-3">
+          {{ this.$store.state.user.user.userId }}
         </div>
       </v-sheet>
 
@@ -23,14 +28,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <!-- Header -->
-    <!-- <v-app-bar color="#424242" dark>
-      <v-toolbar-title>ToDo App</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <router-link to="/"> Login</router-link>
-      <v-spacer></v-spacer>
-      <router-link to="/todo">ToDo</router-link>
-    </v-app-bar> -->
+
     <v-main>
       <router-view />
     </v-main>
@@ -38,31 +36,31 @@
 </template>
 
 <script>
-import Login from "./views/Login.vue";
 
 export default {
   name: "App",
-  components: { Login },
+
   data: () => ({
     userEmail: "",
-    cards: ["Today", "Yesterday"],
     drawer: null,
     links: [
-      ["mdi-inbox-arrow-down", "Inbox"],
-      ["mdi-send", "Send"],
+      ["mdi-inbox-arrow-down", "Menu1"],
+      ["mdi-send", "Menu2"],
       ["mdi-delete", "Trash"],
-      ["mdi-alert-octagon", "Spam"],
     ],
   }),
-  methods: {
-    getEmail() {
-      const userEmail = JSON.parse(sessionStorage.getItem("user"));
-      this.userEmail = userEmail.email;
+  methods: {},
+  computed: {
+    getDate() {
+      const today = new Date();
+      return today.toLocaleDateString();
     },
-  },
-  mounted() {
-    const userEmail = JSON.parse(sessionStorage.getItem("user"));
-    this.getEmail();
+
+    getIdfromEmail() {
+      const email = this.$store.state.user.user.userId;
+      const id = email.split("@")[0];
+      return id;
+    },
   },
 };
 </script>
