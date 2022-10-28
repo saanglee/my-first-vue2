@@ -1,45 +1,25 @@
 <template>
-  <div>
-    <v-card width="400" class="login-form">
-      <input-form isLogin="true" />
-      <!-- <v-form ref="form" @submit.prevent="login">
-        <div class="input-container">
-          <v-text-field
-            type="text"
-            label="E-MAIL"
-            v-model="email"
-            :rules="emailValidation"
-            required
-          />
-          <v-text-field
-            type="text"
-            label="PASSWORD"
-            v-model="password"
-            :rules="pwdValidation"
-            required
-          />
-        </div>
-        <button @click.prevent="login" type="submit" class="login-btn">
-          로그인
-        </button>
-      </v-form> -->
-      <div class="register-box">
-        <v-card-text>아직 회원이 아니신가요?</v-card-text>
-        <v-btn plain @click="moveToRegister" class="pt-4">회원가입</v-btn>
-      </div>
-    </v-card>
+  <div class="login-container d-flex flex-column align-center justify-center">
+    <input-form :isLogin="true" />
+
+    <div class="register-box">
+      <span>아직 회원이 아니신가요?</span>
+      <v-btn
+        plain
+        @click="moveToRegister"
+        class="text-body-1"
+        >회원가입</v-btn
+      >
+    </div>
   </div>
 </template>
 
 <script>
-import UserList from "../components/UserList.vue";
 import InputForm from "../components/InputForm.vue";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default {
   name: "Login",
   components: {
-    UserList,
     InputForm,
   },
   data() {
@@ -66,21 +46,6 @@ export default {
     };
   },
   methods: {
-    login() {
-      const auth = getAuth();
-      signInWithEmailAndPassword(auth, this.email, this.password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          sessionStorage.setItem("user", JSON.stringify(user));
-          this.$router.replace("/todo").catch(() => {});
-        })
-        .catch((error) => {
-          this.email = "";
-          this.password = "";
-          console.log(error.code, error.message);
-          alert("이메일 또는 비밀번호를 확인해주세요.");
-        });
-    },
     moveToRegister() {
       this.$router.push("/register");
     },
@@ -89,6 +54,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.login-container {
+  height: 100vh;
+}
 .login-form {
   padding: 30px 0 10px 0;
   display: flex;
