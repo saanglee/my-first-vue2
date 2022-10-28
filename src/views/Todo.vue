@@ -81,7 +81,6 @@ export default {
           isEditable: false,
         });
       });
-      // this.getCompletedTodos();
     },
 
     logout() {
