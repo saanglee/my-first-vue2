@@ -1,50 +1,65 @@
 <template>
   <div>
     <v-card class="login-form">
-      <v-form ref="form" @submit.prevent="login">
+      <v-form ref="form" class="login-form" @submit.prevent="login">
         <div class="input-container">
           <v-text-field
+            v-model="email"
             type="text"
             label="E-MAIL"
-            v-model="email"
             :rules="emailValidation"
             required
           />
           <v-text-field
-            type="text"
-            label="PASSWORD"
             v-model="password"
+            type="password"
+            label="PASSWORD"
             :rules="pwdValidation"
             required
           />
+
+          <div class="button-container">
+            <v-btn
+              v-if="isLogin"
+              type="submit"
+              class="button text-h6"
+              color="primary"
+              @click="login"
+            >
+              로그인
+            </v-btn>
+            <v-btn
+              v-else
+              type="submit"
+              class="button text-h6"
+              color="primary"
+              depressed
+              @click="register"
+            >
+              회원가입
+            </v-btn>
+          </div>
         </div>
-        <button @click="login" type="submit" class="login-btn" v-if="isLogin">
-          로그인
-        </button>
-        <button
-          @click="register"
-          type="submit"
-          class="login-btn"
-          v-else-if="!isLogin"
-        >
-          회원가입
-        </button>
       </v-form>
     </v-card>
   </div>
 </template>
 
 <script>
-import UserList from "../components/UserList.vue";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 
 export default {
   name: "InputForm",
-  props: [{ isLogin: true }],
-
-  components: {
-    UserList,
+  props: {
+    isLogin: {
+      type: Boolean,
+    },
   },
+
   data() {
     return {
       email: "",
@@ -52,7 +67,7 @@ export default {
       emailValidation: [
         (value) => !!value || "이메일을 입력해주세요.",
         (value) => {
-          const replacedValue = value.replace(/(\s*)/g, ""); // 필드에 들어간 모든 빈칸을 제거
+          const replacedValue = value.replace(/(\s*)/g, ""); 
           const regex =
             /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
           return regex.test(replacedValue) || "이메일 형식을 확인해주세요.";
@@ -73,9 +88,9 @@ export default {
       signInWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log("login user : ", user);
-          sessionStorage.setItem("user", JSON.stringify(user));
+          this.saveUserToStorage(user);
           this.$router.replace("/todo").catch(() => {});
+          this.reload();
         })
         .catch((error) => {
           this.email = "";
@@ -85,29 +100,22 @@ export default {
         });
     },
     register() {
-      console.log(this.email, this.password);
-      // this.$store.dispatch("user/addUser", event.target.value);
       const auth = getAuth();
       createUserWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
-          const user = userCredential.user;
-          console.log("user : ", user);
-          alert("회원가입이 완료되었습니다.");
-          this.$router.replace("/");
+          this.$router.push("/");
+          alert(`${userCredential.user}님 회원가입이 완료되었습니다.`);
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMsg = error.message;
-          console.log("errorCode, errorMsg : ", errorCode, errorMsg);
+          const { code, message } = error;
+          console.log("errorCode, errorMsg : ", code, message);
         });
     },
-  },
-  computed: {
-    buttonText() {
-      if (this.isLogin) {
-        return "로그인";
-      }
-      return "회원가입";
+    saveUserToStorage(user) {
+      sessionStorage.setItem("user", JSON.stringify(user));
+    },
+    reload() {
+      window.location.reload(true);
     },
   },
 };
@@ -115,26 +123,27 @@ export default {
 
 <style lang="scss" scoped>
 .login-form {
-  width: 400px;
-  padding: 30px 0 10px 0;
+  width: 450px;
+  padding: 50px 0 20px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
   .input-container {
-    width: 300px;
+    width: 350px;
   }
-  .login-btn {
-    width: 100%;
+
+  .button {
+    width: 350px;
+    height: 60px;
     border: 1px solid black;
     align-self: center;
-    margin: 10px 0 10px 0;
+    margin: 50px 0 10px 0;
   }
   .register-box {
     width: 260px;
     display: flex;
-    // padding-right: 30px;
   }
 }
 </style>

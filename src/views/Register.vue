@@ -1,17 +1,20 @@
 <template>
-  <form>
-    <v-text-field type="text" placeholder="E-MAIL" v-model="email" />
-    <v-text-field type="text" placeholder="PASSWORD" v-model="password" />
-    <v-btn @click="goBack">뒤로 가기</v-btn>
-    <v-btn @click.prevent="register" type="submit">회원 가입</v-btn>
-  </form>
+  <div
+    class="register-container d-flex flex-column align-center justify-center"
+  >
+    <v-btn @click="goBack" class="go-back-btn" large>뒤로 가기</v-btn>
+    <input-form :isLogin="false" />
+  </div>
 </template>
 
 <script>
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import InputForm from "../components/InputForm.vue";
 
 export default {
   name: "Register",
+  components: {
+    InputForm,
+  },
   data() {
     return {
       email: "",
@@ -22,25 +25,17 @@ export default {
     goBack() {
       this.$router.go(-1);
     },
-    register() {
-      console.log(this.email, this.password);
-      // this.$store.dispatch("user/addUser", event.target.value);
-      const auth = getAuth();
-      createUserWithEmailAndPassword(auth, this.email, this.password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log("user : ", user);
-          alert("회원가입이 완료되었습니다.");
-          this.$router.replace("/");
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMsg = error.message;
-          console.log("errorCode, errorMsg : ", errorCode, errorMsg);
-        });
-    },
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.register-container {
+  height: 100vh;
+}
+.go-back-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+</style>
