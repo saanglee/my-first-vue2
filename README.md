@@ -50,15 +50,7 @@ npm run serve
   - Todo 리스트 보기
   - Todo 입력
   - Todo 수정 / 삭제
-
-# 동작 화면
-Todo 입력, 수정
-![Kapture 2022-10-28 at 14 36 23](https://user-images.githubusercontent.com/92660097/198518808-71ae778c-e5d7-42dc-98f1-a50146dd8a80.gif)
-
-Todo 삭제 / 로그아웃
-![Kapture 2022-10-28 at 14 41 02](https://user-images.githubusercontent.com/92660097/198518789-ed34c4a1-dc04-4e22-8db8-2e564e3a3c1c.gif)
-
-
+  - 
 ## 1. 로그인/회원가입
 
 ### 로그인 화면
@@ -194,6 +186,14 @@ InputForm.vue - script 부분) 로그인, 회원가입 로직
     },
   },
 ```
+
+
+# 동작 화면
+### Todo 입력, 수정
+![Kapture 2022-10-28 at 14 36 23](https://user-images.githubusercontent.com/92660097/198518808-71ae778c-e5d7-42dc-98f1-a50146dd8a80.gif)
+
+### Todo 삭제 / 로그아웃
+![Kapture 2022-10-28 at 14 41 02](https://user-images.githubusercontent.com/92660097/198518789-ed34c4a1-dc04-4e22-8db8-2e564e3a3c1c.gif)
 
 
 
