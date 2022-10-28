@@ -1,24 +1,61 @@
-# todo
+# To Do It! 
 
-## Project setup
+# Stacks
+- vue.js (ver.2)
+
+### Libarary
+- vuetify,axios, sass, firebase
+
+# 실행 방법
 ```
+git clone https://github.com/saanglee/my-first-view
+
+cd todo
+
 npm install
-```
 
-### Compiles and hot-reloads for development
-```
 npm run serve
 ```
 
-### Compiles and minifies for production
+# 디렉토리 구조
+### todo/src
 ```
-npm run build
+├── App.vue
+├── assets
+├── components
+│   ├── AddTodo.vue
+│   ├── InputForm.vue
+│   └── TodoList.vue
+├── main.js
+├── plugins
+│   └── vuetify.js
+├── router
+│   └── index.js
+├── store
+│   ├── index.js
+│   └── modules
+│       ├── todo.js
+│       └── user.js
+└── views
+    ├── Login.vue
+    ├── Register.vue
+    └── Todo.vue
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+# 컴포넌트 구조
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# 주요 기능
+- 로그인, 회원가입
+- CRUD  
+  - Todo 리스트 보기
+  - Todo 입력
+  - Todo 수정 / 삭제
+
+
+
+## 로그인/회원가입
+
+로그인 화면
+
+
+## CRUD 
