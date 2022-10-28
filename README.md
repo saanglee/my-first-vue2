@@ -139,17 +139,42 @@ InputForm.vue - script 부분) 로그인, 회원가입 로직
 
 ### 로그인 후
 
-- SessionStorage에서 사용자 id를 가져와 Navbar 상단에 노출합니다.
 <img width="1075" alt="image" src="https://user-images.githubusercontent.com/92660097/198519135-1df9711d-721a-4ecc-83c1-32b9087fe3e4.png">
 
+- email값에서 사용자 id만 가져와 App.vue에 위치한 Navbar의 상단에 노출합니다.
+- `store/user.js` 
+    - session storage에 저장된 로그인 user email을 가져옵니다. App.vue로 userId 값을 보내도록 하여 간단히게 vuex를 적용해보았습니다. 
 
+```jsx
+// store/user.js
+const sessionStoarge = {
+  getIdFromEmail() {
+    if (sessionStorage.getItem("user")) {
+      const user = JSON.parse(sessionStorage.getItem("user"));
+      const id = user.email.split("@")[0];
+      return `${id}님 안녕하세요😀`;
+    }
+    return "로그인을 해주세요.";
+  },
+};
+
+export default {
+  namespaced: true,
+  state: {
+    user: {
+      userId: sessionStoarge.getIdFromEmail(),
+    },
+  },
+
+};
+
+```
 
 ## 2. Todo 입력, List읽기, 수정, 삭제
 
 ### Todo.vue
-- Todo.vue의 하위 컴포넌트로 AddTodo.vue와 TodoList.vue컴포넌트가 있습니다.
-- Todo.vue
-  - firebase에 Todo 추가하기, firebase에서 Todo 리스트를 가져오기, 삭제하기로직이 있습니다.
+- Todo 입력 컴포넌트, TodoList 를 읽어오는 컴포넌트를 분리하여 Todo.vue 페이지의 하위에 AddTodo.vue와 TodoList.vue컴포넌트를 두었습니다.
+- Todo.vue 페이지에 firebase에 Todo 추가하기, firebase에서 Todo 리스트를 가져오기, 삭제하기 로직을 두어 자식 컴포넌트(AddTodo.vue와 TodoList.vue)로 데이터 이동이 원활하도록 하였습니다.
   - 추가 시 가장 최근의 Todo가 가장 상단으로 오도록 하기 위해 push 대신 unshift메서드를 사용하였습니다.
 ```jsx
     async toggleCheckBox({ targetId, current }) {
@@ -185,7 +210,7 @@ InputForm.vue - script 부분) 로그인, 회원가입 로직
     },
 ```
 
-- 완료된 Todo 리스트 개수를 계산하여 TodoList.vue컴포넌트의 props로 내려줍니다.
+- Todo.vue에서 완료된 Todo 리스트 개수를 계산하여 TodoList.vue컴포넌트의 props로 내려줍니다.
 ```jsx
   computed: {
     numberOfCompletedTodo() {
