@@ -1,40 +1,41 @@
 <template>
   <div>
-    <v-text-field
-      label="할 일을 작성해 보세요."
-      @keyup.enter="addTodo"
-      class="ma-3 text-h5"
-      v-model="todoText"
-    />
+    <v-row justify="center">
+      <v-col cols="10">
+        <v-textarea
+          label="할 일을 작성해 보세요. 💬 "
+          v-model="newTodo"
+          @keyup.enter="addTodoFromChild"
+          class="text-h5 mt-13"
+          auto-grow
+          outlined
+          rows="3"
+          shaped
+          filled
+        />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
-import { collection, addDoc } from "firebase/firestore";
-import db from "../main";
-
 export default {
   data() {
     return {
-      todoText: "",
-      checked: false,
+      newTodo: "",
     };
   },
   methods: {
-    // ✨ Add Todo to firbase
-    async addTodo() {
-      if (this.todoText.length > 1) {
-        console.log("this.todoTex : ", this.todoText);
-        await addDoc(collection(db, "todos"), {
-          todoText: this.todoText,
-          checked: false,
-        });
-        this.$store.todo.commit("ADD_TODO");
+    addTodoFromChild() {
+      if (this.newTodo !== "") {
+        this.$emit("addTodo", this.newTodo);
+      } else {
+        alert("1자 이상 입력해주세요.");
       }
-      alert("1자 이상 입력해주세요.");
+      this.clearInput();
     },
     clearInput() {
-      this.todoText = "";
+      this.newTodo = "";
     },
   },
 };
